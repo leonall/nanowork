@@ -294,9 +294,10 @@ class LiePin:
         for url in urls:
             index += 1
             print(f"提取{post}岗位,第", index, "条数据……")
-            time.sleep(1 + random.random() * 4)
+            time.sleep(1 + random.random())
             detail = {}
-            while not detail.get('status') and retries > 0:
+            _retries = retries
+            while not detail.get('status') and _retries > 0:
                 try:
                     # 发送GET请求
                     headers = {"User-Agent": random.choice(self.user_Agent)}
@@ -309,7 +310,7 @@ class LiePin:
                     # 搜索岗位名
                     search_name = post
                     detail = self.parse_page(html_str, post_link, search_name)
-                    retries -= 1
+                    _retries -= 1
                     time.sleep(1 + random.random())
                 except Exception as e:
                     print('爬取失败：{}\nurl: {}'.format(e, url))
@@ -424,7 +425,7 @@ class LiePin:
             }
         except Exception as e:
             print('网页解析错误', e)
-        if detail and detail.get('岗位名称') != '未知' and detail.get('企业名称') != '未知':
+        if detail and detail.get('岗位名称') != '未知':
             detail['status'] = 'ok'
         return detail
 
