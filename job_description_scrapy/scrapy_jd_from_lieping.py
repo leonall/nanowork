@@ -152,7 +152,7 @@ class LiePin:
 
         # 获取最大的页码
         try:
-            page_size_box = driver.find_element(By.XPATH, "//*[@id='lp-search-job-box']/div[3]/section[1]/div[2]/ul")
+            page_size_box = self.driver.find_element(By.XPATH, "//*[@id='lp-search-job-box']/div[3]/section[1]/div[2]/ul")
             page_num = int(page_size_box.find_elements(By.CLASS_NAME, 'ant-pagination-item')[-1].text)
         except:
             page_num = 10
